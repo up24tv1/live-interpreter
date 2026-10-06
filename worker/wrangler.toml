@@ -1,0 +1,19 @@
+name = "live-interpreter-api"
+main = "worker.js"
+compatibility_date = "2026-09-01"
+account_id = "67b831a2c8bc1f1b5d1e7f310eaeab78"
+
+# Secrets (set with `wrangler secret put`, never committed):
+#   OPENCLAW_API_KEY  - fallback path through the OpenClaw gateway
+#   GROQ_API_KEY      - fast path (console.groq.com/keys)
+
+# Worker->Worker on same account must use a service binding (fetch = error 1042)
+[[services]]
+binding = "GATEWAY"
+service = "openclaw-gateway"
+
+# 40 phrases / minute / IP
+[[ratelimits]]
+name = "LIMITER"
+namespace_id = "7401"
+simple = { limit = 40, period = 60 }

@@ -1,0 +1,17 @@
+# Redeploys the API Worker whenever worker/ changes (e.g. edited from your phone).
+# Needs repo secret CLOUDFLARE_API_TOKEN (Workers edit permission).
+name: deploy-worker
+on:
+  push:
+    branches: [main]
+    paths: ['worker/**']
+  workflow_dispatch:
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          workingDirectory: worker

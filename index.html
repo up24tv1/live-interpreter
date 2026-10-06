@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Live Interpreter</title>
+<link rel="manifest" href="app.webmanifest">
+<meta name="theme-color" content="#0b5fff">
+<style>
+  :root { --bg:#f6f7fb; --card:#fff; --ink:#14161c; --mute:#6b7280; --line:#e3e6ee; --accent:#0b5fff; --stop:#d92d20; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#0f1115; --card:#171a21; --ink:#eef0f4; --mute:#9aa3b2; --line:#272c36; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; font:16px/1.45 system-ui, -apple-system, Segoe UI, Roboto, sans-serif; background:var(--bg); color:var(--ink); }
+  main { max-width:640px; margin:0 auto; padding:16px; }
+  h1 { font-size:20px; margin:4px 0 12px; }
+  .bar { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+  select, button, input { font:inherit; }
+  select { flex:1; min-width:0; padding:10px; border:1px solid var(--line); border-radius:10px; background:var(--card); color:var(--ink); }
+  #swap { padding:10px 12px; border:1px solid var(--line); border-radius:10px; background:var(--card); color:var(--ink); cursor:pointer; }
+  #go { width:100%; margin:12px 0; padding:16px; border:0; border-radius:14px; background:var(--accent); color:#fff; font-size:18px; font-weight:600; cursor:pointer; }
+  #go.on { background:var(--stop); }
+  .opts { display:flex; gap:16px; flex-wrap:wrap; color:var(--mute); font-size:14px; }
+  .opts label { display:flex; gap:6px; align-items:center; }
+  #status { color:var(--mute); font-size:14px; min-height:20px; margin:8px 0; }
+  #log { display:flex; flex-direction:column; gap:8px; }
+  .row { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:10px 12px; }
+  .heard { color:var(--mute); font-size:14px; }
+  .text { font-size:19px; font-weight:500; }
+  .row.pending .text { color:var(--mute); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Live Interpreter</h1>
+  <div class="bar">
+    <select id="a" aria-label="Language A"></select>
+    <button id="swap" aria-label="Swap languages">⇄</button>
+    <select id="b" aria-label="Language B"></select>
+  </div>
+  <button id="go">Start listening</button>
+  <div class="opts">
+    <label id="srcRow" hidden>Source
+      <select id="src"><option value="mic">Microphone</option><option value="tab">This tab's audio</option></select>
+    </label>
+    <label><input type="checkbox" id="speak" checked> Speak translation</label>
+    <label>Mic sensitivity <input type="range" id="sens" min="1" max="10" value="5"></label>
+  </div>
+  <div id="status">Speak either language — it translates both ways.</div>
+  <div id="log"></div>
+</main>
+<script type="module" src="app.js"></script>
+</body>
+</html>

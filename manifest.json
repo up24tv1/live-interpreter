@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "Live Interpreter",
+  "version": "0.1.0",
+  "description": "Real-time two-way voice interpreter for your mic or any tab's audio.",
+  "action": { "default_title": "Live Interpreter" },
+  "side_panel": { "default_path": "index.html" },
+  "background": { "service_worker": "background.js" },
+  "permissions": ["sidePanel", "tabCapture"],
+  "host_permissions": ["https://live-interpreter-api.bukasa2014.workers.dev/*"]
+}
